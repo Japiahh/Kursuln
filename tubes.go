@@ -239,7 +239,7 @@ func editpeserta(banyakdatasaatini int, d *tabregistrasi) {
 		if n == "n" {
 			editpeserta(banyakdatasaatini, d)
 		} else {
-			tabelpeserta(3, 1)
+			tabelpeserta(3, 0)
 			fmt.Println()
 			fmt.Print("input[nm/kt/bm]> ")
 			fmt.Scan(&n)
@@ -393,7 +393,7 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 	fmt.Print("confirm[any]> ")
 	fmt.Scan(&pilih)
 }
-func carinamalengkap(sel tabregistrasi, banyakdatasaatini int, namalengkap string) int { /*sel*/
+func carinamalengkap(sel tabregistrasi, banyakdatasaatini int, namalengkap string) int { 
 	var l, m, h, idx int
 	l = 0
 	h = banyakdatasaatini - 1
@@ -510,40 +510,27 @@ func tabelpeserta(tpe, tpi int) {
 		fmt.Println(" nm[up/dwn] = Berdasarkan Nama (Up/Down)")
 		fmt.Println(" bck = kembali")
 	} else if tpe == 3 {
-		fmt.Printf("#Edit Peserta \n \n")
-		fmt.Printf(" .../Peserta/Edit_Peserta \n \n")
-		fmt.Println("")
-		fmt.Println("")
-		fmt.Println("")
-		fmt.Println("")
-	} else if tpe == 3 && tpi == 1 {
 		fmt.Printf("#Daftar Edit Peserta \n \n")
 		fmt.Printf(" .../Peserta/Edit_Peserta/Daftar_Edit_Peserta \n \n")
 		fmt.Println("nm = Nama")
 		fmt.Println("kt = Katalog")
 		fmt.Println("bm = Bidang Minat")
-	} else if tpe == 4 {
-		fmt.Printf("#Hapus Peserta \n \n")
-		fmt.Printf(" .../Peserta/Hapus_Peserta \n \n")
-		fmt.Println("")
-		fmt.Println("")
-		fmt.Println("")
-		fmt.Println("")
-	}
+		fmt.Println("ok = konfirmasi") 
+	} 
 }
 func tabelbidangminatdankatalog (tbk) {
 	if tbk == 0 {
-		fmt.Println(" 1 = ")
-		fmt.Println(" 2 = ")
-		fmt.Println(" 3 = ")
-		fmt.Println(" 4 = ")
-		fmt.Println(" 5 = ")
+		fmt.Println(" 1 = Pemograman Web")
+		fmt.Println(" 2 = Data Sains")
+		fmt.Println(" 3 = Desain UI/UX")
+		fmt.Println(" 4 = Keamanan Cyber")
+		fmt.Println(" 5 = Mobile Development")
 	} else if tbk == 1 {
-		fmt.Println(" 1 = ")
-		fmt.Println(" 2 = ")
-		fmt.Println(" 3 = ")
-		fmt.Println(" 4 = ")
-		fmt.Println(" 5 = ")
+		fmt.Println(" 1 = Teknologi")
+		fmt.Println(" 2 = Bisnis Digital")
+		fmt.Println(" 3 = Kecerdasan Buatan")
+		fmt.Println(" 4 = Desain Kreatif")
+		fmt.Println(" 5 = Keamanan Sistem")
 	}
 }
 

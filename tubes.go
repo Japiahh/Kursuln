@@ -87,14 +87,14 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 			if n == "dn" {
 				decending(d, 1, 0)
 				fmt.Println("Data yang diurutkan (descending) : ")
-				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
+				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
 					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 				}
 			} else if n == "up"{
 				acending(d, 1, 0, &sel)
 				fmt.Println("Data yang diurutkan (ascending) : ")
-				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
+				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
 					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 				}
@@ -117,7 +117,7 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 			} else if n == "up"{
 				acending(d, 0, 1, &sel)
 				fmt.Println("Data yang diurutkan (ascending) : ")
-				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
+				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
 					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 				}
@@ -130,7 +130,7 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 }
 func lihatdatapeserta (banyakdatasaatini int, d tabregistrasi) {
 	var i int
-	fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
+	fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 	for i = 0; i < banyakdatasaatini; i++ {
 		fmt.Printf(" %-20d %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 	}
@@ -362,7 +362,7 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 		fmt.Printf("Data Tidak Ditemukan! \n \n")
 		} else {
 			fmt.Printf("\n \n Data ditemukan : \n \n")
-			fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
+			fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 			fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[data].ID, d[data].nama, d[data].katalog, d[data].bidangminat, d[data].tanggalpendaftaran)
 		}
 	} else if pilih == "bm" {

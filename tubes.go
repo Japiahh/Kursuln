@@ -9,7 +9,7 @@ type Peserta struct {
 	tanggalpendaftaran string
 }
 type tabregistrasi [nmax] Peserta
-func tambahpeserta(banyakdatasaatini *int, d *tabregistrasi){
+func tambahpeserta(banyakdatasaatini *int, d, sel *tabregistrasi) {
 	var i, h, katal, bidangm, n int
 	fmt.Printf("#Tambah Peserta \n \n")
 	fmt.Println(" .../Peserta/Tambah_Peserta \n \n")
@@ -17,7 +17,7 @@ func tambahpeserta(banyakdatasaatini *int, d *tabregistrasi){
 	fmt.Print("input> ")
 	fmt.Scan(&n)
 	h = 0
-	for i = *banyakdatasaatini; i < n; i++ {
+	for i = *banyakdatasaatini; i < *banyakdatasaatini + n; i++ {
 		h = h + 1 
 		fmt.Printf("Perserta ke-%d", h)
 		fmt.Print("Nama> ")
@@ -31,7 +31,7 @@ func tambahpeserta(banyakdatasaatini *int, d *tabregistrasi){
 		} else {
 			for !(katal < 10 && katal > 0) {
 				fmt.Println("Pilihan tidak valid! Coba lagi..")
-				tabelpilihankatalog()
+				tabelbidangminatdankatalog(0)
 				fmt.Scan(&katal)
 			}
 			d[i].katalog = comp(katal, 0)
@@ -50,11 +50,11 @@ func tambahpeserta(banyakdatasaatini *int, d *tabregistrasi){
 		tabelpeserta(1, 2)
 		fmt.Scan(&bidangm)
 		if bidangm < 10 && bidangm > 0 {
-			d[i].bidangm = comp(0, bidangm)
+			d[i].bidangminat = comp(0, bidangm)
 		} else {
 			for !(bidangm < 10 && bidangm > 0) {
 				fmt.Println("Pilihan tidak valid! Coba lagi...")
-				tabelpilihanbidangminat()
+				tabelbidangminatdankatalog(1)
 				fmt.Scan(&bidangm)
 			}
 			d[i].bidangminat = comp(0, bidangm)
@@ -86,18 +86,18 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 				fmt.Scan(&n)
 			}
 			if n == "dn" {
-				decending(d, 1, 0)
+				decending(d, 1, 0, banyakdatasaatini)
 				fmt.Println("Data yang diurutkan (descending) : ")
 				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
 					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 				}
 			} else if n == "up"{
-				acending(d, 1, 0, banyakdatasaatin, sel)
+				acending(d, 0, 1, banyakdatasaatini, sel)
 				fmt.Println("Data yang diurutkan (ascending) : ")
 				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
-					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
+					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", (*sel)[i].ID, (*sel)[i].nama, (*sel)[i].katalog, (*sel)[i].bidangminat, (*sel)[i].tanggalpendaftaran)
 				}
 			}
 		} else if n == "nm" {
@@ -109,22 +109,22 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 				fmt.Scan(&n)
 			}
 			if n == "dn" {
-				decending(d, 0, 1)
+				decending(d, 0, 1, banyakdatasaatini)
 				fmt.Println("Data yang diurutkan (descending) : ")
-				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "idang Minat", "Tanggal Pendaftaran")
-				for i = 0; i < banyakdatasaatini; i++ {
-					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
-				}
-			} else if n == "up"{
-				acending(d, 0, 1, &sel)
-				fmt.Println("Data yang diurutkan (ascending) : ")
 				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 				for i = 0; i < banyakdatasaatini; i++ {
 					fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", d[i].ID, d[i].nama, d[i].katalog, d[i].bidangminat, d[i].tanggalpendaftaran)
 				}
+			} else if n == "up"{
+				acending(d, 0, 1, banyakdatasaatini, sel)
+				fmt.Println("Data yang diurutkan (ascending) : ")
+				fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
+				for i = 0; i < banyakdatasaatini; i++ {
+					 fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s", (*sel)[i].ID, (*sel)[i].nama, (*sel)[i].katalog, (*sel)[i].bidangminat, (*sel)[i].tanggalpendaftaran)
+				}
 			}
 		}
-		if !(n == "bck" || n == "id" || n == "up") {
+		if !(n == "bck" || n == "id" || n == "nm") {
 			fmt.Println("Pilihan tidak valid! Coba lagi...")
 		}
 	}
@@ -151,6 +151,7 @@ func acending(d tabregistrasi, id, nm, banyakdatasaatini int, sel *tabregistrasi
 			d[i] = temp
 			pass = pass + 1
 		}
+		*sel = d
 	}
 	if nm == 1 {
 		*sel = d 
@@ -159,14 +160,14 @@ func acending(d tabregistrasi, id, nm, banyakdatasaatini int, sel *tabregistrasi
 			idx = pass - 1
 			i = pass
 			for i < banyakdatasaatini {
-				if sel[idx].nama > sel[i].nama { 
+				if (*sel)[idx].nama > (*sel)[i].nama { 
 					idx = i
 				}
 				i = i + 1
 			}
-			temp = sel[pass-1]
-			sel[pass-1] = sel[idx]
-			sel[idx] = temp
+			temp = (*sel)[pass - 1]
+			(*sel)[pass - 1] = (*sel)[idx]
+			(*sel)[idx] = temp
 			pass = pass + 1
 		}
 		d = *sel
@@ -189,52 +190,48 @@ func decending(d tabregistrasi, id, nm, banyakdatasaatini int) {
 				}
 				temp = d[pass - 1] 
 				d[pass - 1] = d[idx]
-				d[idx] = temp1
-				
+				d[idx] = temp
 				pass = pass + 1
 			}
-			b = true
 	}
 	if nm == 1 {
-		if id == 1 {
-			pass = 1
-			for pass < banyakdatasaatini {
-				temp = d[pass]
-				i = pass
-				for i > 0 && d[i - 1].nama < temp.nama {
-					d[i] = d[i - 1]
-					i = i - 1
-				}
-				d[i] = temp
-				pass = pass + 1
+		pass = 1
+		for pass < banyakdatasaatini {
+			temp = d[pass]
+			i = pass
+			for i > 0 && d[i - 1].nama < temp.nama {
+				d[i] = d[i - 1]
+				i = i - 1
 			}
+			d[i] = temp
+			pass = pass + 1
 		}
 	}
 }
-func editpeserta(banyakdatasaatini int, d *tabregistrasi) {
-	var k, namal, data int
-	var n, compl string
+func editpeserta(banyakdatasaatini int, d, sel *tabregistrasi) {
+	var k, namal int
+	var n, compi string
 	fmt.Println("Cari data nama lengkap : ")
 	fmt.Println()
-	lihatdatapeserta(banyakdatasaatini, d)
+	lihatdatapeserta(banyakdatasaatini, *d)
 	fmt.Print("\n \nInput[Nama Lengkap]> ")
 	fmt.Scan(&n)
-	namal = carinamalengkap(sel, banyakdatasaatini, n)
-	if data == -1 {
+	namal = carinamalengkap(*sel, banyakdatasaatini, n)
+	if namal == -1 {
 		fmt.Printf("Data Tidak Ditemukan! Coba lagi atau keluar...[y/any]\n \n")
 		fmt.Print("Input[y/any]> ")
 		fmt.Scan(&n)
 		if n == "y" {
-			editpeserta(banyakdatasaatini, d)
+			editpeserta(banyakdatasaatini, d, sel)
 		}
 	} else {
 		fmt.Printf("\n \n Data ditemukan : \n \n")
 		fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
-		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", d[namal].ID, d[namal].nama, d[namal].katalog, d[namal].bidangminat, d[namal].tanggalpendaftaran)
+		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", (*d)[namal].ID, (*d)[namal].nama, (*d)[namal].katalog, (*d)[namal].bidangminat, (*d)[namal].tanggalpendaftaran)
 		fmt.Print("confirm[n/any]> ")
 		fmt.Scan(&n)
 		if n == "n" {
-			editpeserta(banyakdatasaatini, d)
+			editpeserta(banyakdatasaatini, d, sel)
 		} else {
 			tabelpeserta(3, 0)
 			fmt.Println()
@@ -244,23 +241,23 @@ func editpeserta(banyakdatasaatini int, d *tabregistrasi) {
 				if n == "nm" {
 					fmt.Printf("input[Data Nama lengkap baru] \n> ")
 					fmt.Scan(&n)
-					d[namal].nama = n
+					(*d)[namal].nama = n
 					fmt.Print("confirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "kt" {
 					tabelbidangminatdankatalog(0)
 					fmt.Printf("input[Data Katalog baru] \n> ")
 					fmt.Scan(&k)
-					compi == comp(k, 0)
-					d[namal].katalog = compi
+					compi = comp(k, 0)
+					(*d)[namal].katalog = compi
 					fmt.Print("confirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "bm" {
 					tabelbidangminatdankatalog(1)
 					fmt.Printf("input[Data Bidang Minat baru] \n> ")
 					fmt.Scan(&k)
-					compi == comp(0, k)
-					d[namal].bidangminat = compi
+					compi = comp(0, k)
+					(*d)[namal].bidangminat = compi
 					fmt.Print("confirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "ok" {
@@ -280,7 +277,7 @@ func hapuspeserta (banyakdatasaatini *int, d, sel *tabregistrasi, totalhapus *in
 	var i, asel, ad int
 	fmt.Println("Cari data nama lengkap : ")
 	fmt.Println()
-	lihatdatapeserta(banyakdatasaatini, d)
+	lihatdatapeserta(*banyakdatasaatini, *d)
 	fmt.Print("\n \nInput[Nama Lengkap]> ")
 	fmt.Scan(&n)
 	asel = carinamalengkap(*sel, *banyakdatasaatini, n)
@@ -294,13 +291,13 @@ func hapuspeserta (banyakdatasaatini *int, d, sel *tabregistrasi, totalhapus *in
 	} else {
 		fmt.Printf("\n\n Data ditemukan : \n\n")
 		fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
-		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", sel[asel].ID, sel[asel].nama, sel[asel].katalog, sel[asel].bidangminat, sel[asel].tanggalpendaftaran)
+		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", (*sel)[asel].ID, (*sel)[asel].nama, (*sel)[asel].katalog, (*sel)[asel].bidangminat, (*sel)[asel].tanggalpendaftaran)
 		fmt.Printf("confirm[y/any]> ")
 		fmt.Scan(&n)
 		if n == "y" {
 			ad = -1
 			for i = 0; i < *banyakdatasaatini; i++ {
-				if d[i].ID == sel[asel].ID {
+				if d[i].ID == (*sel)[asel].ID {
 					ad = i
 					i = *banyakdatasaatini 
 				}
@@ -310,32 +307,32 @@ func hapuspeserta (banyakdatasaatini *int, d, sel *tabregistrasi, totalhapus *in
 					d[i] = d[i + 1]
 				}
 				for i = asel; i < *banyakdatasaatini - 1; i++ {
-					sel[i] = sel[i + 1]
+					(*sel)[i] = (*sel)[i + 1]
 				}
 				*banyakdatasaatini = *banyakdatasaatini - 1
+				*totalhapus = *totalhapus + 1
 				fmt.Println("Data berhasil dihapus!")
 			}
 		} else {
 			fmt.Println("Penghapusan dibatalkan.")
 		}
 	}
-	*totalhapus = *totalhapus + 1
 }
 
-func pengaturanpeserta(d *tabregistrasi, banyakdatasaatini *int,) {
+func pengaturanpeserta(d *tabregistrasi, banyakdatasaatini *int, sel *tabregistrasi, totalhapus *int) {
 	var pilih int
 	for pilih != 5 {
 		tabelpeserta(0,0)
 		fmt.Print("input[1/2/3/4/5]> ")
 		fmt.Scan(&pilih)
 		if pilih == 1 {
-			tambahpeserta(&banyakdatasaatini, &d)
+			tambahpeserta(banyakdatasaatini, d, sel)
 		} else if pilih == 2 {
-			lihatpeserta(banyakdatasaatini, d)
+			lihatpeserta(*banyakdatasaatini, *d, sel)
 		} else if pilih == 3 {
-			editpeserta(banyakdatasaatini, &d)
+			editpeserta(*banyakdatasaatini, d, sel)
 		} else if pilih == 4 {
-			hapuspeserta(&banyakdatasaatini, &d)
+			hapuspeserta(banyakdatasaatini, d, sel, totalhapus)
 		} else if pilih == 5 {
 			fmt.Printf("Kembali ke Main... \n \n")
 		} else {
@@ -344,10 +341,9 @@ func pengaturanpeserta(d *tabregistrasi, banyakdatasaatini *int,) {
 	}
 }
 func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
-	var data int
-	var pilih, pc string
-	var v bool
-	data = -1
+	var data, i int
+	var pilih, namabm string
+	var ketemu bool
 	tabelmain(2, 0)
 	fmt.Print("input[nm/bm]> ")
 	fmt.Scan(&pilih)
@@ -372,9 +368,20 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 			tabelmain(2, 1)
 			fmt.Println("input>")
 			fmt.Scan(&pilih)
-		}  
+		} 
+		if pilih == "1" {
+			namabm = "Teknologi"
+		} else if pilih == "2" {
+			namabm = "Bisnis Digital"
+		} else if pilih == "3" {
+			namabm = "Kecerdasan Buatan"
+		} else if pilih == "4" {
+			namabm = "Desain Kreatif"
+		} else if pilih == "5" {
+			namabm = "Keamanan Sistem"
+		} 
 		for i = 0; i < banyakdatasaatini; i++ {
-			if d[i].bidangminat == pilih {
+			if d[i].bidangminat == namabm {
 				if ketemu == false {
 					fmt.Printf("\n \n Data ditemukan : \n \n")
 					fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
@@ -400,7 +407,7 @@ func carinamalengkap(sel tabregistrasi, banyakdatasaatini int, namalengkap strin
 		if sel[m].nama == namalengkap {
 			idx = m 
 			return idx
-		} else if sel[m].tahun < namalengkap {
+		} else if sel[m].nama < namalengkap {
 			l = m + 1 
 		} else {
 			h = m - 1 
@@ -410,19 +417,20 @@ func carinamalengkap(sel tabregistrasi, banyakdatasaatini int, namalengkap strin
 }
 
 func ringkasanstatistik(d tabregistrasi, banyakdatasaatini, totalhapus int) {
+	var i, pw, ds, du, kc, md, t, bd, dk, kb, ks int
 	lihatdatapeserta(banyakdatasaatini, d)
 	fmt.Println()
 	fmt.Println("Statistik Data : ")
 	for i = 0; i < banyakdatasaatini; i++ {
-		if d[i].bidangminat == "Pemograman Web" {
+		if d[i].katalog == "Pemograman Web" {
 			pw = pw + 1
-		} else if d[i].bidangminat == "Data Sains" {
+		} else if d[i].katalog == "Data Sains" {
 			ds = ds + 1
-		} else if d[i].bidangminat == "Desain UI/UX" {
+		} else if d[i].katalog == "Desain UI/UX" {
 			du = du + 1
-		} else if d[i].bidangminat == "Keamanan Cyber" {
+		} else if d[i].katalog == "Keamanan Cyber" {
 			kc = kc + 1
-		} else if d[i].bidangminat == "Mobile Development" {
+		} else if d[i].katalog == "Mobile Development" {
 			md = md + 1
 		}
 		if d[i].bidangminat == "Teknologi" {
@@ -441,19 +449,19 @@ func ringkasanstatistik(d tabregistrasi, banyakdatasaatini, totalhapus int) {
 	fmt.Println()
 	fmt.Println("Data Katalog : ")
 	fmt.Printf("| %-20s | %-20s | %-20s |", "Nama Data", "Jumlah", "Persentase")
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Pemograman Web", pw, float64(pw) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Data Sains", ds, float64(ds) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Desain UI/UX", du, float64(du) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Keamanan Cyber", kc, float64(kc) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Mobile Develoment", md, float64(md) / float64(banyakdatasaatini) * 100))
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Pemograman Web", pw, float64(pw) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Data Sains", ds, float64(ds) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Desain UI/UX", du, float64(du) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Keamanan Cyber", kc, float64(kc) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Mobile Develoment", md, float64(md) / float64(banyakdatasaatini) * 100)
 	fmt.Println()
 	fmt.Println("Data Bidang Minat : ")
 	fmt.Printf("| %-20s | %-20s | %-20s |", "Nama Data", "Jumlah", "Persentase")
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Teknologi", t, float64(t) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Bisnis Digital", bd, float64(bd) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Desain Kreatif", dk, float64(dk) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Kecerdasan Buatan", kb, float64(kb) / float64(banyakdatasaatini) * 100))
-	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Keamanan Sistem", ks, float64(ks) / float64(banyakdatasaatini) * 100))
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Teknologi", t, float64(t) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Bisnis Digital", bd, float64(bd) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Desain Kreatif", dk, float64(dk) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Kecerdasan Buatan", kb, float64(kb) / float64(banyakdatasaatini) * 100)
+	fmt.Printf("| %-20s | %-20d | %-20.2f%% |", "Keamanan Sistem", ks, float64(ks) / float64(banyakdatasaatini) * 100)
 	fmt.Println()
 	fmt.Println("Informasi Tambahan : ")
 	fmt.Printf("Total hapus : %d", totalhapus)
@@ -561,9 +569,7 @@ func comp(katalog, bidangminat int) string {
 }
 
 func main() {
-	var pilih int
-	var pilih2 string
-	var target string
+	var pilih, totalhapus int
 	var d, sel tabregistrasi
 	var banyakdatasaatini int
 	for pilih != 5 {
@@ -571,7 +577,7 @@ func main() {
 		fmt.Print("input[1/2/3/4]> ")
 		fmt.Scan(&pilih)
 		if pilih == 1 {
-			pengaturanpeserta(&d, &banyakdatasaatini)
+			pengaturanpeserta(&d, &banyakdatasaatini, &sel, &totalhapus)
 		} else if pilih == 2 {
 			caripeserta(d, sel, banyakdatasaatini)
 		} else if pilih == 3 {

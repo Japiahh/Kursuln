@@ -11,20 +11,20 @@ type Peserta struct {
 type tabregistrasi [nmax] Peserta
 func tambahpeserta(banyakdatasaatini *int, d, sel *tabregistrasi) {
 	var i, h, katal, bidangm, n int
-	fmt.Printf("#Tambah Peserta \n \n")
+	fmt.Printf("\n \n#Tambah Peserta \n \n")
 	fmt.Println(" .../Peserta/Tambah_Peserta \n \n")
 	fmt.Println("Banyak Peserta :")
-	fmt.Print("input> ")
+	fmt.Printf("\ninput> ")
 	fmt.Scan(&n)
 	h = 0
 	for i = *banyakdatasaatini; i < *banyakdatasaatini + n; i++ {
 		h = h + 1 
 		fmt.Printf("Perserta ke-%d", h)
-		fmt.Print("Nama> ")
+		fmt.Printf("\nNama> ")
 		fmt.Scan(&d[i].nama)
 		
 		tabelpeserta(1, 1)
-		fmt.Print("Katalog> ")
+		fmt.Printf("\nKatalog[1/2/3/4/5/6/7/8/9/10]> ")
 		fmt.Scan(&katal)
 		if katal < 10 && katal > 0 {
 			d[i].katalog = comp(katal, 0)
@@ -48,6 +48,7 @@ func tambahpeserta(banyakdatasaatini *int, d, sel *tabregistrasi) {
 			d[i].tanggalpendaftaran = "5 - 9 Oktober 2026"
 		}
 		tabelpeserta(1, 2)
+		fmt.Printf("\nBidang Minat[1/2/3/4/5/6/7/8/9/10]> ")
 		fmt.Scan(&bidangm)
 		if bidangm < 10 && bidangm > 0 {
 			d[i].bidangminat = comp(0, bidangm)
@@ -64,25 +65,25 @@ func tambahpeserta(banyakdatasaatini *int, d, sel *tabregistrasi) {
 	}
 	*banyakdatasaatini = *banyakdatasaatini + n
 	acending(*d, 0, 1, *banyakdatasaatini, sel)
-	fmt.Println("Data Diperbaharui!")
+	fmt.Println("\n \nData Diperbaharui!\n \n")
 }
 
 func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 	var n string
 	var i int
-	fmt.Printf("#Lihat Peserta \n \n")
+	fmt.Printf("\n \n#Lihat Peserta \n \n")
 	fmt.Println(" .../lihat_Peserta \n \n")
 	lihatdatapeserta(banyakdatasaatini, d)
 	for n != "bck" {
 		tabelpeserta(2, 0)
-		fmt.Print("input[id/nm/back]> ")
+		fmt.Printf("\ninput[id/nm/back]> ")
 		fmt.Scan(&n)
 		if n == "id" {
-			fmt.Print("input[up/dn]> ")
+			fmt.Printf("\ninput[up/dn]> ")
 			fmt.Scan(&n)
 			for n != "up" && n != "dn" {
 				fmt.Println("Pilihan tidak valid! Coba lagi...")
-				fmt.Print("input[id/nm/back]> ")
+				fmt.Printf("\ninput[id/nm/back]> ")
 				fmt.Scan(&n)
 			}
 			if n == "dn" {
@@ -101,11 +102,11 @@ func lihatpeserta (banyakdatasaatini int, d tabregistrasi, sel *tabregistrasi) {
 				}
 			}
 		} else if n == "nm" {
-			fmt.Print("input[up/dn]> ")
+			fmt.Printf("\ninput[up/dn]> ")
 			fmt.Scan(&n)
 			for n != "up" && n != "dn" {
 				fmt.Println("Pilihan tidak valid! Coba lagi...")
-				fmt.Print("input[up/dn]> ")
+				fmt.Printf("\ninput[up/dn]> ")
 				fmt.Scan(&n)
 			}
 			if n == "dn" {
@@ -219,7 +220,7 @@ func editpeserta(banyakdatasaatini int, d, sel *tabregistrasi) {
 	namal = carinamalengkap(*sel, banyakdatasaatini, n)
 	if namal == -1 {
 		fmt.Printf("Data Tidak Ditemukan! Coba lagi atau keluar...[y/any]\n \n")
-		fmt.Print("Input[y/any]> ")
+		fmt.Printf("\nInput[y/any]> ")
 		fmt.Scan(&n)
 		if n == "y" {
 			editpeserta(banyakdatasaatini, d, sel)
@@ -228,7 +229,7 @@ func editpeserta(banyakdatasaatini int, d, sel *tabregistrasi) {
 		fmt.Printf("\n \n Data ditemukan : \n \n")
 		fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", (*d)[namal].ID, (*d)[namal].nama, (*d)[namal].katalog, (*d)[namal].bidangminat, (*d)[namal].tanggalpendaftaran)
-		fmt.Print("confirm[n/any]> ")
+		fmt.Printf("\nconfirm[n/any]> ")
 		fmt.Scan(&n)
 		if n == "n" {
 			editpeserta(banyakdatasaatini, d, sel)
@@ -242,7 +243,7 @@ func editpeserta(banyakdatasaatini int, d, sel *tabregistrasi) {
 					fmt.Printf("input[Data Nama lengkap baru] \n> ")
 					fmt.Scan(&n)
 					(*d)[namal].nama = n
-					fmt.Print("confirm[ok/kt/bm]> ")
+					fmt.Printf("\nconfirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "kt" {
 					tabelbidangminatdankatalog(0)
@@ -250,21 +251,21 @@ func editpeserta(banyakdatasaatini int, d, sel *tabregistrasi) {
 					fmt.Scan(&k)
 					compi = comp(k, 0)
 					(*d)[namal].katalog = compi
-					fmt.Print("confirm[ok/kt/bm]> ")
+					fmt.Printf("\nconfirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "bm" {
 					tabelbidangminatdankatalog(1)
-					fmt.Printf("input[Data Bidang Minat baru] \n> ")
+					fmt.Printf("\ninput[Data Bidang Minat baru] \n> ")
 					fmt.Scan(&k)
 					compi = comp(0, k)
 					(*d)[namal].bidangminat = compi
-					fmt.Print("confirm[ok/kt/bm]> ")
+					fmt.Printf("\n \nconfirm[ok/kt/bm]> ")
 					fmt.Scan(&n)
 				} else if n == "ok" {
 
 				} else {
 					fmt.Println("Pilihan tidak valid! Coba lagi...")
-					fmt.Print("confirm[nm/kt/bm/ok]> ")
+					fmt.Printf("\n \nconfirm[nm/kt/bm/ok]> ")
 					fmt.Scan(&n)
 				}
 			}
@@ -278,12 +279,12 @@ func hapuspeserta (banyakdatasaatini *int, d, sel *tabregistrasi, totalhapus *in
 	fmt.Println("Cari data nama lengkap : ")
 	fmt.Println()
 	lihatdatapeserta(*banyakdatasaatini, *d)
-	fmt.Print("\n \nInput[Nama Lengkap]> ")
+	fmt.Printf("\n \nInput[Nama Lengkap]> ")
 	fmt.Scan(&n)
 	asel = carinamalengkap(*sel, *banyakdatasaatini, n)
 	if asel == -1 {
 		fmt.Printf("Data Tidak Ditemukan! Coba lagi atau keluar...[y/any]\n \n")
-		fmt.Print("Input[y/any]> ")
+		fmt.Printf("\nInput[y/any]> ")
 		fmt.Scan(&n)
 		if n == "y" {
 			hapuspeserta(banyakdatasaatini, d, sel, totalhapus)
@@ -292,7 +293,7 @@ func hapuspeserta (banyakdatasaatini *int, d, sel *tabregistrasi, totalhapus *in
 		fmt.Printf("\n\n Data ditemukan : \n\n")
 		fmt.Printf("\n%-20s %-20s %-20s %-20s %-20s", "ID", "Nama", "katalog", "Bidang Minat", "Tanggal Pendaftaran")
 		fmt.Printf("\n%-20d %-20s %-20s %-20s %-20s \n \n", (*sel)[asel].ID, (*sel)[asel].nama, (*sel)[asel].katalog, (*sel)[asel].bidangminat, (*sel)[asel].tanggalpendaftaran)
-		fmt.Printf("confirm[y/any]> ")
+		fmt.Printf("\nconfirm[y/any]> ")
 		fmt.Scan(&n)
 		if n == "y" {
 			ad = -1
@@ -323,7 +324,7 @@ func pengaturanpeserta(d *tabregistrasi, banyakdatasaatini *int, sel *tabregistr
 	var pilih int
 	for pilih != 5 {
 		tabelpeserta(0,0)
-		fmt.Print("input[1/2/3/4/5]> ")
+		fmt.Printf("\ninput[1/2/3/4/5]> ")
 		fmt.Scan(&pilih)
 		if pilih == 1 {
 			tambahpeserta(banyakdatasaatini, d, sel)
@@ -345,7 +346,7 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 	var pilih, namabm string
 	var ketemu bool
 	tabelmain(2, 0)
-	fmt.Print("input[nm/bm]> ")
+	fmt.Printf("\ninput[nm/bm]> ")
 	fmt.Scan(&pilih)
 	if pilih == "nm" {
 		fmt.Println("Ketik Nama Lengkap[sesuai data]> ")
@@ -360,13 +361,13 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 		}
 	} else if pilih == "bm" {
 		tabelmain(2, 1)
-		fmt.Println("input>")
+		fmt.Printf("\ninput>")
 		fmt.Scan(&pilih)
 		for pilih != "1" && pilih != "2" && pilih != "3" && pilih != "4" && pilih != "5" {
 			fmt.Println("Pilihan tidak valid! Coba lagi...")
 			fmt.Println()
 			tabelmain(2, 1)
-			fmt.Println("input>")
+			fmt.Printf("\ninput>")
 			fmt.Scan(&pilih)
 		} 
 		if pilih == "1" {
@@ -394,7 +395,7 @@ func caripeserta(d, sel tabregistrasi, banyakdatasaatini int) {
 			fmt.Printf("Data Tidak Ditemukan! \n \n")
 		}
 	}
-	fmt.Print("confirm[any]> ")
+	fmt.Printf("\n\nconfirm[any]> ")
 	fmt.Scan(&pilih)
 }
 func carinamalengkap(sel tabregistrasi, banyakdatasaatini int, namalengkap string) int { 
@@ -478,8 +479,8 @@ func tabelmain(tm, tms int) {
 		fmt.Println(" 4 = Ringkasan Statistik")
 		fmt.Println(" 5 = Selesai")
 	} else if tm == 2 {
-		fmt.Printf("#Cari Peserta \n \n")
-		fmt.Printf(" main/Cari_Peserta \n \n")
+		fmt.Printf("\n#Cari Peserta \n \n")
+		fmt.Printf("main/Cari_Peserta \n \n")
 		fmt.Println("Pilihan :")
 		fmt.Println(" nm = Nama")
 		fmt.Println(" bm = Bidang Minat")
@@ -573,8 +574,8 @@ func main() {
 	var d, sel tabregistrasi
 	var banyakdatasaatini int
 	for pilih != 5 {
-		tabelmain(0)
-		fmt.Print("input[1/2/3/4]> ")
+		tabelmain(0, 0)
+		fmt.Printf("\ninput[1/2/3/4]> ")
 		fmt.Scan(&pilih)
 		if pilih == 1 {
 			pengaturanpeserta(&d, &banyakdatasaatini, &sel, &totalhapus)
@@ -585,7 +586,7 @@ func main() {
 		} else if pilih == 4 {
 			ringkasanstatistik(d, banyakdatasaatini, totalhapus)
 		} else if pilih == 5 {
-			fmt.Println("Program selesai.")
+			fmt.Printf("\n\nProgram selesai.")
 		} else {
 			fmt.Println("Pilihan tidak valid! Coba lagi...")
 		}

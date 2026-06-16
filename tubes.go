@@ -3,10 +3,7 @@ import "fmt"
 const nmax = 100
 type Peserta struct {
 	ID int 
-	nama string
-	katalog string
-	bidangminat string
-	tanggalpendaftaran string
+	nama, katalog, bidangminat, tanggalpendaftaran string
 }
 type tabregistrasi [nmax] Peserta
 func tambahpeserta(banyakdatasaatini *int, d, sel *tabregistrasi) {
